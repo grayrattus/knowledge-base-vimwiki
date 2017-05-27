@@ -1,0 +1,14 @@
+Przydatne programy:
+	*build-essential* -- zawiera kompilatory gcc, g++
+	*automake*
+	*checkinstall* - program, który przed instalacją sprawdza czy sama paczka nie spowoduje konfliktu nazw w systemie.
+		Systemy kontroli wersji: *cvs*, *subversion*, *git-core*, *mercurial*
+Gdy mamy paczkę *nazwa_paczki.tar.gz* to możemy ją pobrać poprzez *wget* Przykład: `wget http://nazwa_paczki.tar.gz`
+Następnie sprawdzamy plik *configure*. Jest to skrypt, który ma sprawdzić wszystkie zależności przed kompilacją programu.
+Następnie sprawdzamy czy plik *configure* ma prawa do wykonania. `ls -l configure`
+	Jeżeli nie ma prawa `x` to należy mu je nadać `chmod +x configure`
+Następnie uruchamiany *configure* poprzez `./configure`
+Następnie gdy pojawia się *error* należy doinstalować wymaganą paczkę poprzez `apt-get install nazwa_wymaganej_paczki`, `yum install nazwa_wymaganej_paczki`
+Następnie jeżeli wszystkie błędy są rozwiązane zostaje wygenerowany *makefile*. Jest to plik, który pozwoli nam wykonać kompilację ze wszystkimi zależnościami. W tym momencie należy użyć programu `make` by rozpocząć proces kompilacji.
+	Aby przyśpieszyć kompilacje można użyć flagi `-j ilosc_rdzeni` tak aby dla procesora o np. 4 rdzeniach polecenie wyglądało tak `make -j 4`
+Ostatnim krokiem, który należy wykonać jest wykonanie programu `checkinstall` lub `make install`. Różnica między nimi jest taka, że `make install` zainstaluje program bez uprzedniego sprawdzenia czy nie ma konflików w systemie a `checkinstall` zainstaluje program trochę jak windowsowy instalation guide.

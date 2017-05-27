@@ -1,0 +1,137 @@
+*Kompilacja:*
+	tasm /zi nazwa.asm
+	tlink /v nazwa.obj
+	td nazwa.exe
+
+
+*Programy hybrydowe:* -- program dwu lub więcej modułowy gdzie jeden jest napisany w języku niskiego poziomu a drugi wysokiego.
+===== Przykladowy program dla borlanda -- bardzo podstawowy =====
+{{{
+	void init_mode(unsigned char m) {
+		_asm {
+			push ax,
+			xor ah, ah
+			mov al, m
+			int 10h
+			pop ax
+		}
+	}
+}}}
+===== Przykladowy program =====
+{{{ 
+	#include <iostream>
+	using namespace std;
+	int main ()
+	{ 
+		unsigned int n = 10;
+		unsigned int suma = 0;
+		unsigned int * tab = new unsigned int [n];
+		for (unsigned int i = 0; i < n; i++) {
+			tab[i] = i;
+		}
+		__asm {
+			mov ecx, n ; // podaje zmienną n, która jest już wcześniej zadeklarowana
+			xor eax, eax
+			mov ebx,tab
+		l1: add eax,[ebx]
+			add ebx,4
+			loop l1
+			mov sumameax
+		}
+		cout << "suma wynosi: " << suma << endl;
+		delete[] tab;
+		return 0;
+	}
+}}}
+
+ax - 16 bitów
+eax - 32 bity
+
+eax:
+| brak nazwy | brak nazwy | al | ah |
+
+MMX -- pozwala wykonywać obliczenia na wektorach.
+
+====== Moduł w jęz. assemblera ======
+{{{
+	.model small, C ; określa konwencję języka dla C = C
+	.code 
+
+	PUBLIC fun1; upublicznia funkcje
+
+	fun1 PROC
+		ret
+	fun1 ENDP
+	end
+}}}
+
+====== Moduł w języku C ======
+{{{
+	extern "C" void fun1(); // określa konwencję języka dla C = "C"
+	int main() {
+		fun1();
+		return 0;
+	}
+}}}
+
+====== Sposoby przekazywania argumentów: ======
+* przez rejestry: ogólnego przeznaczenia. Najszybszy sposób. Konwencja ta nosi nazwę *fastcall*
+* przez pamięć operacyjną. umówiony obszar pamięci służy do zapisu i odczytu argumantów dla funckji
+* przekazywanie argumantów przez stos (klasycznie). Argumenty przekazywana są przez stos procesora. Konwencja ta nosi nazwę *stdcall*
+
+!IMG 
+
+====== Jak działa wywołanie funkcji w C? ======
+{{{
+	void "C" proc(int a, int b, int c) {
+	}
+}}}
+
+Za każdym razem gdy wywołujemy funkcję w C musim odłożyć argumenty na stosie np. dla `proc()`:
+{{{
+	push c
+	push b
+	push a
+	call proc
+}}}
+
+Ramka stosu i zmienne lokalne:
+początek kodu funkcji `proc()`:
+{{{
+	push bp // odkładamy ten rejestr dla stosu bo potem będziemy zniego korzystali i na sam koniec trzeba przywrócić jego wartość
+	mov bp, sp
+	sub sp,8 // alokacja zmiennyh lokalnych
+}}}
+Sposób odwoływania do argumentów:
+{{{
+	[BP+6] --> argument a,
+	[BP+8] --> argument b,
+	[BP+10] --> argument c,
+}}}
+
+Sposób odwoływania się do zmiennych lokalnych:
+{{{
+	[BP-2] --> zmienna l1,
+	[BP-4] --> zmienna l2,
+	[BP-6] --> zmienna l3,
+	[BP-8] --> zmienna l3,
+}}}
+
+Powrót z procedury
+{{{
+	mov SP, BP
+	pop BP
+	ret
+}}}
+
+AL - char proc();
+AX - int proc();
+EAX - long proc();
+
+
+
+		
+Konwersja pomiędzy sytemami - binary - hex
+Dodawanie na liczbach naturalnych 8 bit. np. 
+123+221=
+Argumenty należy przekonwertować do postaci binarnej i dodać. Potem napisać czy nie doszło do przekroczenia zakresu.

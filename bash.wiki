@@ -1,0 +1,40 @@
+`#!/bin/bash` - sprawia, że skrypt jest interpretowany jako bashowy
+
+== Specjalne znaki: == 
+`echo "${#zmienna}` 
+
+zwraca ilosc znakow w zmiennej"
+
+====== Konwertowanie liczb ======
+`echo $(( 2#111 ))` 
+
+konwertuje system 2 na 10
+
+====== Operator nic nie robiący ======
+{{{
+if [ "$var" -gt 15 ]
+then : #operator nic nie robiący
+else 
+	echo $var
+fi
+}}}
+
+====== obliczy wartość ====== 
+`let val=500/2` 
+====== wyczyści cały plik przez operator nic nie robiący ====== 
+`: > wood.txt `
+====== szybki if ====== 
+`echo $(( var2 = var1<20?1:0))` 
+====== przedział liczb ====== 
+`echo {1..10}` 
+====== inne ====== 
+`echo \${test1,test2,test3}\$` # zwróci wszystkie wyrazy w formacie *$test1* `$test1$ $test2$ $test3$`
+
+`cat {testFIle01,testFile02} > test.txt `# przekieruje cut na kazdym z plikow w {}
+
+`( uruchomienie w subshell-u )`
+`{ uruchomienie w obecnym shellu ; }`
+`(( Arytmetyczne wyrażenie  )) `# jest tym samym co let wyrażenie
+`[[ wrażenie ]]` # zwraca status 1 lub 0 
+Gdy używa się `==` lub `!=`  do porównywania stringów
+

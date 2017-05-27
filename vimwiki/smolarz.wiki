@@ -1,0 +1,3 @@
+== Uprawnienia ==
+
+Gdy jest operacja I/O to proces jest :q

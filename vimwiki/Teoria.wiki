@@ -1,0 +1,7 @@
+W elektronicznych przewodach stosuje się:
+	* złoto
+	* miedź
+	* aluminium
+Baterie mierzy się w *mAh*.
+	200mAh może zasilać obwód 5mA przez 40h
+		200mAh/5mA=40h

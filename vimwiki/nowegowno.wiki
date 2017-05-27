@@ -1,0 +1,68 @@
+=== Zarządzanie pamięcią ===
+AMD - x86_64
+INTEL - i386
+
+arch -- sprawdza architekure komputera
+free -lm -- wyświetla dostępną pamięć ram
+* free - wolna pamięć
+* swap/buff - pamięć podręczna
+* swap cache -- bufor stron
+vmstat -s -- statystyki aktywnych i nie aktywnych stron pamięci 
+vmstat -a 2 7 -- statystyki systemu operacyjnego 7 razy co 2 sekundy
+
+dd if=/dev/zero of=/var/pagefile.swp bs=1M count=700 -- zwiększa przestrzeń wymiany 
+mkswap /dev/sdb2 -- to też chyba tworzy
+mkswap -L PlikWymiany /var/pagefile.swp
+
+swapon -s -- wyświetla przestrzeń wymiany
+swapon -p 10 /dev/sdb2 -- ustawia priorytet swapu
+swapoff /dev/sdb2 -- usuwa z przestrzeni wymiany wszystkie strony
+
+vmstat -m -- statystyki dotyczące poszczególnych pamięci cache
+
+slabtop -o -- wyświetla to samo tylko trochę inaczej. W zasadzie zwraca więcej informacji.
+
+=== Przetwarzanie zadań ===
+Zadania realizowane przez jądro systemu są wykonywane jako wątki jądra systemu i są wykonywane wyłącznie w trybie uprzywilejowanym (kernel space).
+
+Pozostałe zadania są wykonywane jako procesy przy czym proces może posiadać wiele wątków, z których każdy wykonuje inne zadanie.
+
+Po wczytaniu programu do pamięci tworzony jest proces jednowątkowy, później liczba wątków może ulec zmianie.
+
+Każdy z wątków procesu umożliwia niezależną realizację zadania więc wątki nazywane są lekkimi procesami (LWP-Light Weight Process).
+
+*Maksymalna liczba wątków procesu jest określona w systemie Linux w pliku /proc/sys/kernel/threads-max*
+
+procinfo -- zwraca informacje o procesorze
+* średnie użycie
+* ilość przełączeń kontekstu
+uptime -- zwraca czas pracy systemu 
+w -- to samo co uptime
+vmstat -s | tail -16 -- to chyba bez znaczenia
+
+vmstat 1 -- wyświetla liczbę procesów w stanie gotowym do wykonania oraz liczbę zgłozonych przerwań oraz przełączeń kontekstu procesów w jednostce czasu 1s.
+
+pidof firefox -- zwraca pid podanego procesu
+
+ps -o pid,stat,tty,nlwp,lwp,cpuid -L -Cfirefox -- wyświetla to co się mu podaje w argumentach. flaga -C przyjmuje nazwę procesu
+
+pidstat -t -p 2078 -- wyświetla statystyki dla programu gdzie podajemy PID
+
+pstack 2078
+
+Procesy wielowątkowe posiadają identyfikatory TID(LightWeightProcess).
+
+pstree -p -h 1480 -- wyświetla hirarchię procesów
+
+chrt -- zarządzanie polityką SCHED_PROCESS
+pidstat -- najlepsze narzędzie. Pozwala monitowować system w czasie rzeczywistym np:
+	pidstat 2 5 -p 1907 -r
+	
+Process status:
+* Runnable
+* Sleeping
+* Zombie - finished and waiting for kill
+* Stop - zatrzymany przez inny proces lub kernel
+
+nice -n 15 nazwa_procesu
+renice -5 2744 

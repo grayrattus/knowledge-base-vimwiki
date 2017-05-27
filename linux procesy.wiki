@@ -1,0 +1,40 @@
+watch "ls -ltrh" & - Background
+watch "ls -ltrh" (ctrl+z) + bg
+
+`bg <n>` komenda jest użyta do przeniesienia procesu w tło
+`fg <n>` komenda jest użyta do przyrócenia procesu z tła
+`jobs` - wyświetla wszystkie procesy przyisane do danego terminala
+	Ten + na początku oznacza ze po przywróceniu przypize sie znowu do terminala a nie wyłączy
+	
+===== ps ===== 
+`ps -e` --
+`ps -ef` --
+`ps -eF` -- sredni output
+`ps -ely` -- bardzo duzy output
+`ps aux` -- wyświe
+`ps ax`
+`ps -ejH` -- wyświetla drzewo procesów
+`ps axjf` -- wyświetla drzewo procesów
+`ps -eLf` -- wyświetla informacje o wątkach
+`ps axms` -- wyświetla informacje o wątkach
+
+`ps -aef | grep <process-name>` -- informacja o danym procesie
+`ps -p <process-id>` -- listuje procesy po PID
+`ps -u <process-id>` - listuje procesy po UID
+
+===== top =====
+`$> top` - wyswietli calkowita aktywnosc na procesorze
+`SHIFT+M` - sortuje po ilosci RAM
+`SHIFT+P` - sortuje po ilosci CPU
+`Z` - wyświetla całość w kolorze
+`C` - listuje absolutne ści4eżki
+`K` - zabija procesy
+`SHIFT+W` - zapisuje output w pliku /root.toprc.
+`$> top` -u <nazwa_użytkownika>
+
+===== kill =====
+kill <pid>
+killadd 
+
+OBEJRZEĆ JEGO INNE TUTY BO MÓWI, ŻE TAM TŁUMACZY LEPIEJ :V ...
+

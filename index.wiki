@@ -1,0 +1,19 @@
+* [[LVM]]
+* [[linux procesy]]
+* [[MidnightCommander]]
+* 
+* [[Assemlber]]
+* [[libreoffice]]
+* [[source compilation linux]]
+* [[bash]]
+
+  *bold text*
+  _italic text_
+  ~~strikeout text~~
+  `code (no syntax) text`
+  super^script^
+  sub,,script,,
+Plain link: >
+  [[This is a link]]
+With description: >
+  [[This is a link source|Description of the link]]

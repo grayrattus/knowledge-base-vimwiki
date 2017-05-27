@@ -1,0 +1,26 @@
+  Alt+c - quick change directory
+  Ctrl+o - change screen to bash [[prompt]]
+  Ctrl+n - next line
+  Ctrl+p - previous line
+  * - select all files in directory
+  - - unselect group of files 
+  Ctrl+\ - directory hotlinks 
+  	If you regulary use some specific directories you can add it here for
+	easier access.
+  Ctrl+s - search and place coursor on founded file
+  Alt+i - will make the other panel show the same directory as active panel
+  Ctrl+u - swap panels
+  Alt+Enter - moves selected file name to prompt 
+  	For example to edit in VIM:
+		vi [Alt+Enter]
+  Ctrl+Shift+Enter - moves selected full path of file to prompt		
+  Ctrl+p - moves current directory to prompt
+  F4 - edit a file
+  F9 - dropdown menu
+  Esc+Tab+Esc+Tab - list all autocompletion for files/directories
+  Alt+Shift+h - shows directory history
+  
+  
+  Some interesing links:
+  http://nawaz.org/media/docs/mc/mc.pdf
+  http://klimer.eu/2015/05/01/use-midnight-commander-like-a-pro/

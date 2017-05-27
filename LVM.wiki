@@ -1,0 +1,40 @@
+LVM - logical volume manager
+
+`lsb_release -a` // wyświetla jaki system jest zainteresowany
+`pvdisplay` // wyświetla wszystkie fizyczne partycje
+
+`/boot` // nie może być partycją LVM
+`vgdisplay` // wyswietla grupy lvm-ow
+`lvdisplay` // wyswietla logiczne partycje lvm
+
+	* pvdisplay 
+	** vgdisplay
+	*** lvdisplay
+
+`vgcreate nazwa_grupy /dev/sda7_nazwa_partycji` // Utworzenie grupy partycji
+`lvcreate -L 100G nazwa_grupy -n nazwa_partycji_logicznej` // utworznie volumenu
+`lvremove /dev/nazwa_grupy/nazwa_partycji_logicznej` // usuwanie partycji loigicznej
+`lvcreate -l +100%FREE nazwa_grupy -n nazwa_partycji_logicznej`  // Utworzenie partycji na 100%
+
+`mkfs.ext4 /dev/nazwa_grupy/nazwa_partycji_logicznej` // Formatowanie partycji lvm na ext4
+`mount /dev/nazwa_grupy/nazwa_partycji_logicznej` /nazwa_folderu_montowania
+
+`lvcreate -L 200M -s -n backup /dev/nazwa_grupy/backup_nazwa` // Utworznie partycji logicznej w formacie snapshot
+`mount /dev/nazwa_grupy/backup_nazwa /folder_do_zamontowania` // Zamontowanie partycji snapshot-a
+Własnie dla tych snapshotów nie można zapełnić całej grupy volumenami. Te snapshoty są tworzone w wolnej przestrzeni.
+
+`lvextend -l +100%FREE /dev/nazwa_grupy/nazwa_partycji_logicznej` // Zwiększa logiczną ilość miejsca na 100% tak, żeby można było potem użyć na niej `resize2fs` tę komendę można używać na pracującym systemie plików
+`lvreduce -l 50G /dev/nazwa_grupy/nazwa_partycji_rozdzerzonej` // Robi to samo co `lvextend` ale nie powinno być używane na zamontowanym systemie plików
+
+`resize2fs /dev/lvm/data ilosc_do_rozszerzenia` // Po odmontowaniu partycji powoduje zwiekszenie jej o okreslona ilosc przez `lvextend` lub `lvreduce`
+
+Typowe kroki do dodania nowego dysku LVM do istniejącej grupy 
+`fdisk /dev/nazwa_dysku` // wlacza fdisk dla danego dysku
+	d -- usuwa partycje
+	p -- wyświetla partycje
+	w -- zapisuje zmiany
+	t -- ustawia typ partycji `8e` określa partycję LVM
+`pvcreate /dev/sdb1`
+`vgextend nazwa_grupy /dev/sdb1` // Dodaje dodatkowy dysk do grupy LVM
+`lvextend -l +100%FREE /dev/nazwa_grupy/nazwa_partycji_lvm` // Po dodaniu dysku do grupy lvm ta komenda powoduje, że rozszerza się maksymalny rozmiar dysku ale nie wydać tej zmiany przy `df -h` ponieważ nie całośc nie została jeszcze rozszerzona
+`resize2fs /dev/nazwa_grupy/nazwa_partycji` // Dopiero po tym poleceniu fizyczny rozmiar ulegnie zmianie

@@ -17,3 +17,14 @@ Plain link: >
   [[This is a link]]
 With description: >
   [[This is a link source|Description of the link]]
+
+
+screen -ls -- wyświetla wszystkie sesje screen
+screen -rd -- przypisuje jedną z sesji po PID
+        Gdy sesja jest już zamontowana:
+        Ctrl+a+n - następne okno
+        Ctrl+a+p - poprzednie okno
+        Ctrl+a+" - wyświetla wszystkie okna
+        Ctrl+a+A - zmienia nazwę okna
+        Ctrl+a+k - zabija okno
+        Ctrl+a+c - tworzy nowe okno

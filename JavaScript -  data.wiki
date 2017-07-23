@@ -1,0 +1,209 @@
+<script src="test.js"></script>
+Typy danych: numbers, strings, boleans, functions, objects, undefined, null, arrays, dates, regular expressions
+
+function sayHello() {
+}
+sayHello();
+
+W js można podawać do funkcji tyle argumentów ile się chce ale jeżeli nie będą one obsługiwane to nic się nie stanie i zostaną one ignorowane.
+
+Tworzenie obiektów:
+
+var obj = new Object();
+var obj = {};
+
+var obj = {
+	name: {
+		first: 'Gandalf',
+		last: 'test'
+	},
+	adress: 'Middle Earth'
+};
+
+Tworzenie klas:
+function Book(title, pages, isbn) {
+	this.title = title;
+	this.pages = pages;
+	this.isbn = isbn;
+}
+
+var book = new Book('title', 'pag', 'isbn');
+
+	Dodawanie funkcji:
+	Book.prototype.printTitle = function() {
+		console.log(this.title);
+	};
+	book.printTitle();
+	function Book(title, pages, isbn) {
+		this.title = title;
+		this.pages = pages;
+		this.isbn = isbn;
+		this.printIsbn = function() {
+			console.log(this.isbn);
+		}
+	}
+Manipulowanie tablicami:
+`numbers[numbers.length] = 10;`
+`numbers.push(12);`
+`numbers.unshift(-2)` // dodaje na początek tablicy
+`numbers.pop();` // usuwa osatni element tablicy
+`numbers.shift()` // usuwa pierwszy element tablicy
+`numbers.splice(5,3);` // usunie elementy [5],[6],[7]
+	Poprzez splice możemy też zamieniać elementy:
+		`numbers.splice(0,1,5)` // zamieni 0 element tablicy na 5
+		`numbers.splice(0,3,5,3,3)` // zamieni 0,1,2 element tablicy na 5,3,3
+JavaScript nie wspiera macierzy. Można jednak to ominąć poprzez `tab[0][0] = 10`		
+METODY TABLIC:
+`concat` - łączy tablice i zwraca kopię połączonych tablic
+	{{{
+	var zero = 0;
+	var positiveNumbers = [1,2,3];
+	var negativeNUmbers = [-3,-2,-1];
+	var numbers = negativeNUmbers.concat(zero, positiveNumbers);
+	}}}
+`every` - wywołuje funkcje na każdym elemencie tablicy aż do końca gdzie `false` jest zwracane
+	{{{
+	var isEven = function (x) {
+		return (x%2 == 0) ? true : false;
+	};
+	var numbers = [1,2,3,4,5,6,7,8,9];
+	numbers.every(isEven);
+	return 
+	}}}
+`filter` - tworzy tablice z każdym elementeem, dla którego w funkcji anonimowej jest zwracane `true`
+	{{{
+	var evenNumbers = numbers.filter(isEven);
+	// [2,4,6,8,10,12,14]
+	}}}
+`forEach ` - wywołuje funkcje na każdym z elementów tablicy
+	{{{
+	numbers.forEach(function() {
+		console.log((x % 2 == 0))
+	});
+	}}}
+`join` - łączy wszystkie elementy tablicy w jeden *string*
+`indexOf` - wyszukuje w tablicy elementu i zwraca jego `*index*
+`lastIndexOf` - elementy i zwraca ostatni pasujący
+`map` - ??
+	{{{
+	var myMap = numbers.ma(isEven);
+	// zwróci: [false, true, false ... ]
+	}}}
+`reverse` - odwraca całą tablice
+`slice`  zwraca nową tablice od danego elementu
+`some` - podaje każdy z elementów tablicy aż zostanie zwrócone *true* chodziaż raz 
+`sort` - sortuje tablice *alfabetycznie* lub przez funkcje anonimową
+	{{{
+	numbers.sort(function(a,b) {
+		return a - b;
+	});
+	}}}
+	Można sortować bardziej złożone struktury:
+	{{{
+	var friends = [
+		{name: 'John', age: 30},
+		{name: 'Ana', age: 20},
+		{name: 'Joh', age: 25},
+	];
+	function comparePerson(a, b) {
+		if (a.age < b.age) {
+			return -1
+		}
+		if (a.age > b.age) {
+			return 1
+		}
+		return 0
+	}
+	console.log(friends.sort(comparePersons));
+	// zwróci Ana(20), Chris(25), John(30)
+	}}}
+`toString` - zwraca array jako string
+`reduce` - do funkcji anonimowej podaje *poprzedniaPozycja*, *aktualna*, *index*
+	{{{
+	numbers.reduce(function(previous, current, index) {
+		return previous + current;
+	});
+	}}}
+
+==== ALGORYTMY ====
+
+=== STOSU: ===
+	{{{
+	function Stack() {
+		var items = [];
+		this.push = function(element) {
+			items.push(element);
+		};
+		this.pop = function() {
+			items.pop();
+		};
+		// Zwraca element talicy z góry stosu
+		this.peek = function() {
+			return items[items.length-1];
+		}
+		this.isEmpty = function() {
+			reutn items.length == 0;
+		}
+		this.size = function() {
+			return items.length;
+		};
+		this.clear = function() {
+			items = [];
+		};
+		this.print = function() {
+			console,log(items.toString());
+		};
+	}
+	}}}
+	Używanie klasy stosu: `var stack = new Stack();`
+=== KOLEJKI (QUEUES)===	
+	*FIFO(FirstInFirstOut)*
+	{{{
+	var items = [];
+	function Queue() {
+		this.enqueue = function(element) {
+			items.push(element);
+		};
+		this.dequeue = function() {
+			items.shift();
+		};
+		this.isEmpty = function() {
+			return items.lenght == 0;
+		};
+		this.size = function() {
+			return items.length;
+		}
+		this.pering = function() {
+			console.lgo(items.toString());
+		}
+	}
+	}}}
+	*FIFO(z priorytetem)*
+	{{{
+	function PriorityQuerue() {
+		var items = [];
+		function QueueElement (element, priority) {
+			this.element = element;
+			this.priority = priority;
+		}
+		this.enqueue = function(element, priority) {
+			var queueElement = new QueueElement(element, priority);
+			
+			if (this.isEmpty()) {
+				items.push(ququeElement);
+			} else {
+				var added = false;
+				for (var i = 0; i < items.length; i++) {
+					if (queueElement.priority < items[i].priority){
+						items.splice(i,0,queueElement);
+						added = true;
+						break;
+				}
+			}
+			if (!added) {
+				items.push(queueElement);
+			}
+		}
+	}
+	}}}
+=== LISTY ===	

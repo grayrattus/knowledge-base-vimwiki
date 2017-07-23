@@ -1,4 +1,4 @@
-  Alt+c - quick change directory
+  [[Alt]]+c - quick change directory
   Ctrl+o - change screen to bash [[prompt]]
   Ctrl+n - next line
   Ctrl+p - previous line

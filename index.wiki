@@ -1,11 +1,15 @@
 * [[LVM]]
 * [[linux procesy]]
 * [[MidnightCommander]]
-* 
+* [[systemy_calosc]]
 * [[Assemlber]]
 * [[libreoffice]]
 * [[source compilation linux]]
 * [[bash]]
+* [[SQL]]
+  * [[Python]]
+  * [[JavaScript -  data]]
+  
 
   *bold text*
   _italic text_

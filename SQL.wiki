@@ -1,0 +1,53 @@
+show databases; 
+CREATE DATABASE;
+USE DATABASE;
+SELECT DATABASE();
+
+CREATE TABLE students(
+	first_name VARCHAR(30) NOT NULL,
+	email VARCHAR(60) NULL,
+	state CHAR(2) NOT NULL DEFAULT "PA",
+	sex ENUM('M', 'F') NOT NULL,
+	date_entered TIMESTAMP,
+	student_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY
+)
+
+DESCRIBE students;
+CREATE TABLE class (
+name VARCHAR(30) NOT NULL,
+class_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY
+)
+
+CREATE TABLE teset(
+date DATE NOT NULL,
+type ENUM ('T', 'Q') NOT NULL,
+class_id INT UNSIGNED NOT NULL, // to jest klucz obcy
+test_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY
+)
+
+Klucze obce są używane by zrobić referencje do Primary Keys innych tabel:
+Nie musi być on unikalny.
+
+CREATE TABLE score(
+	student_id int UNSIGNED NOT NULL,
+	event_id INT UNSIGNED NOT NULL,
+	score INT NOT UNLL,
+	PRIMARY KEY(event_id, student_id)
+);	
+
+CREATE TABLE absence (
+	student_id INT UNSIGNED NOT NULL,
+	date DATE NOT NULL,
+	PRIMARY KEY(student_id, date)
+)
+
+ALETER TABLE test 
+ADD maxscore INT NOT NULL AFTER type;
+
+ALTER TABLE score CHANGE event_id test_id INT UNSIGNED NOT NULL;
+
+RENAME TABLE
+absence to absences,
+class to classes;
+
+

@@ -1,0 +1,95 @@
+`type("some string")` -- zwróci `<class 'str'>` jako instancje klasy str
+`type(b"some bytes")` -- zwróci `<class 'bytes'>` jako instancje klasy byte
+
+==== KODOWANIE STRINGÓW: ====
+`str.encode(encoding, errors)` -- domyślnie *UTF-8*
+`bytes.decode(encoding, errors)` -- tak samo można odkodować kod bajtowy
+
+`str(source, encoding, error)` -- tworzy nowy string z konstruktora klasy str
+
+=== KONKATENACJA STRINGÓW ===
+`s = "".join(substrings)`
+	`',',join(['some','coma','separated','values'])`
+		>> 'some,coma,separated,values'
+=== KOLEKCJE W PYTHONIE === 		
+* Lists
+* Tuples
+* Dictionaries
+* Sets
+==== Listy ====
+_Mogą zmieniać rozmiar(są dynamiczne)_
+_Listy to powiązane referencje do innych obiektów. To oznacza, że za każdym razem gdy dodaje się obiekt lista musi być realokowana._
+	== Funkcje ==
+	list.insert
+	list.delete
+	
+	BŁĄD:
+	{{{
+		i = 0
+		for element in ['one, 'two', 'three']:
+			print(i, element)
+			i += 1
+	}}}
+	ROZWIĄZANIE:
+	{{{
+	for i, element in enumerate(['one', 'two']):
+		print(i, element)
+	}}}
+	Ex:
+	{{{
+	for item in zip([1,2,3], [4,5,6]):
+		print(item)
+	... (1,4)	
+	... (2,5)	
+	... (3,6)	
+	}}}
+==== Słowniki(dictionaries) ====	
+_Pozwalają na utworzenie struktury z kluczami:_
+	{{{
+	{
+		1: 'one',
+		2: 'two',
+		3: 'three',
+	}
+	}}}
+	Słowniki nie zachowują kolejności dodawanych elementów i nie muszą bo posiadają klucze.
+	Jak chcemy zachować kolejnośc w liście należy użyć `OrderedDict`, które można zaimportować poprzez `from collections import OrderedDict`
+	
+	
+	== Funkcje ==
+	`keys()`: zwraca wszystkie `dict_keys` obiektu 
+	`values()`: zwraca wszystkie `dict_values` obiektu 
+	`items()`: zwraca touple `dict_items` obiektu w postaci `(key, value)`
+==== Touples ====
+_Nie mogą zmieniać rozmiaru_
+==== Sets ====
+Sety dostarczone są na dwa sposoby `set()` albo `frozenset()`. Ten ostatni nie podlega zmianom.
+Sety są bardzo szybkie.
+
+==== INNE ====
+`namedtuple()` - funkcja factory pozwalająca tworzyć subklasy touples
+`deque()` - kolejka, z której można wyjmować elementy z 2 stron.
+`ChainMap()`
+`Counter()`
+`OrderedDict`
+`defaultdic`
+
+==== ITERATORY ====
+`__next__` - zwraca nastepny element kontenera
+`__iter__` - zwraca iterator kontenera
+	{{{
+	i = iter('abc')
+	next(i) # 'a'
+	next(i) # 'b'
+	next(i) # 'c'
+	next(i) # BŁĄD!
+	}}}
+==== YELD ====
+Pozwala na zwrócenie danych z funkcji bez opuszczania jej(ciekawy koncept)
+{{{
+def fibonacci():
+	a, b = 0, 1
+	while True:
+		yield b
+		a, b = b, a + b
+}}}

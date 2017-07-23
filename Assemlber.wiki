@@ -135,3 +135,6 @@ Konwersja pomiędzy sytemami - binary - hex
 Dodawanie na liczbach naturalnych 8 bit. np. 
 123+221=
 Argumenty należy przekonwertować do postaci binarnej i dodać. Potem napisać czy nie doszło do przekroczenia zakresu.
+
+Ciekawe linki
+http://www.website.masmforum.com/tutorials/fptute/fpuchap2.htm

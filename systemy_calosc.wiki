@@ -1,0 +1,116 @@
+NUMA - architekura komputerów charakteryzująca się podziałem na węzły, które dysponują jednostkami przetwarzającymi i ciągła przestrzenią pamięci RAM.
+
+REGUŁY ARBITRAŻU:
+* Chronologicznie - kolejnośc przydziały jednostki przetwarzającej zgodna z kolejnością procesów lub wątków gotowych do wykonania w systemie opracyjnym - zgodnie z FIFO.
+* Cyklicznie
+* Losowo
+
+ALGORYTMY SZEREGOWANIA(bez wywłaszczania):
+* FCFS (First Come First Serverd) 
+* LCFS (Last Come First Served) 
+* SJF/SJN(Shortest Job First/Next) - wykonanie jako pierwszych najkrótszych zadań(tych gdzie czas zapotrzebowania na jednostkę jest najmniejszy)
+* RR (Round Robin) - algorytm rotacyjny. Po wykorzystaniu przydzielonego kwantu czasu procesora proces jest ponownie umieszczany w kolejce gotowych do wykonania.
+	+ zadania interaktywne
+	+ dla procesów ograniczonych procesorem
+	- nie dla ograniczonych wejściem/wyjściem
+* SRD (Shortest Remaining Time)
+
+POLITYKI SZEREGOWANIA:
+* SCHED_OTHER:
+	+ zwykłe procesy
+* SCHED_BATCH:
+	+ przydzial jednostek przetwarzających dla procesów wsadowych
+	- nie dla interaktywnych zadań pierwszoplanowych
+* SCHED_IDLE:
+	+ szeregowanie procesów bezczynności(przyznaje procesor jak nic innego go nie potrzebuje)
+	- nie dla interaktywnych
+* SCHED_FIFO:
+	+ zadania ograniczone procesorem
+* SCHED_DEADLINE:
+	
+** PAMIĘĆ WIRTUALNA **
+BŁĄD STRONY - próba odczytu/zapisu na zawartości strony nieprzechowywanej w pamięci fizycznej
+	Klasyfikacja błędów stron:
+		* Poboczne - przechowywana w ramce ale nie jest jeszcze zarejestrowana
+		* Główne - wymaga załadowania strony do ramki
+	Algorytmy wymiany stron:
+		+ FIFO - usuwa stronę, która najdłużej jest przechowywana w pamięci
+		+ LIFO - usuwa stronę, najkrócej przechowywaną w pamięci
+		+ LRU (Last Recently Used) - usunięcie strony, która nie została użyta najdłużej
+		+ NFU (Not Frequently Used) - 
+		
+Wskaż algorytmy szeregowana procesów stosujące wywłaszczene względem przydzielonej jednostki przetwarzającej:
+	SRT(Shortest Remainng Time)
+	RR (Round-Robin)
+Wskaż akronimy algorytmów jakie są stosowane w systemach operacyjnych do szeregowana operacj wejśca-wyjśca:
+	SCAN,
+	FCFS
+
+Zasoby sprzętowe:
+	- jednostki przetwarzające
+	- pamięć RAM
+	- urządzenia
+		* blokowe
+		* znakowe
+Zasoby programowe
+	- pliki i katalogi
+	- procesy i wątki
+	- gniazda potoki semafory
+	- strony pamięci
+
+Jądro systemu jest odpowiedzialne za ochronę zakresu pamięci operacyjnej przydzielonej dla programów.
+
+Konsolidacja:
+* statyczna - moduły programu i bibliotek są łączone w binarnym pliku wynikowym(moduł absolutny)
+* dynamiczna - konsolidacja jest wykonywana przez linker w czasie ladowania programu do pamięci.
+
+Systemy:
+	Liczba jednocześnie realizowanych zadań:
+		- jednozadaniowe - sekwencyjne wykonanie programów użytkowników
+		- wielozadaniowe - równoległe wykonanie wielu programów poprzez przełączanie kontekstu
+	Sposób przetwarzania zadań:
+		* przetwarzania bezpośredniego - zgłoszenie zadanai powoduje natychmiastowe rozpoczęcie wykonania programu
+		* przetwarzania pośredniego - zgłoszenie zadania nie zawsze rozpoczyna jego wykonanie
+	Liczbę użytkowników:
+		- jednego użytkownika 
+		- wielodostępne
+	Zastosowanie:
+		- mainframe i superkomputery
+		- systemy operacyjne serwerów
+		- czasu rzeczywistego - system jest zobowiązany wykonać zadanie w danym czasie
+		- rozproszone i sieciowe systemy operacyjne
+		- komputerów osobistych
+		- komputerów podręcznych
+Architektura komputerowa von Neumanna:
+	- CPU
+	- RAM
+	- urządzenia wejścia/wyjścia
+	!! UMIESZCZONY W PAMIĘCI KOD PROGRAMU NIE MOŻE BYŻ ZMIENIANY W TRAKCIE PRZETWARZANIA A KOLEJNOŚC WYKONYWANIA ROZKAZÓW JEST
+	ZGODNA Z KOLEJNOŚCIĄ W JAKIEJ ROZKAZY ZOSTAŁY UMIESZCZONE W PAMIĘCI !!
+Cykl rozkazowy:
+	Cykl rozkazowy zawiera etapy nazywane cyklami maszynowymi:
+		- pobranie z pamięci i zdekodowanie kodu rozkazu
+		- pobranie wymaganych operandów z pamięci i wykonanie rozkazu
+		- składowanie uzyskanych wyników w pamięci
+Rodzaje przerwań:
+	- ZEWNĘTRZNE - źródłem są urządzenia wejścia/wyjścia
+	- PROGRAMOWE - są wynikiem specjalnej instrukcji procesora 
+	- DIAGNOSTYCZNE - generowane wewnętrznie przez procesor
+Prezentacja 1:
+	- linker
+	- konsolidacja statyczna
+	- konsolidacja dynamiczna
+	- co powinien robić system operacyjny
+	- architektura von Neumanna
+	- cykl rozkazowy
+	- cykle maszynowe
+	- rodzaje przerwań
+
+Macierze sprzętowe:
+	- składowymi mogą być jedynie dyski
+Macierze programowe:
+	- mogą być na partycjach dyskowych
+	- niższa wydajność w trybie zdegradowanym
+
+Prezentacja 2:
+	- macierze RAID
